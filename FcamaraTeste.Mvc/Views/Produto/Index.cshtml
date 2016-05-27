@@ -1,0 +1,84 @@
+﻿@model List<FcamaraTeste.Domain.Entidades.Produto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+    function GetProduto(id) {
+        $.ajax(
+        {
+            type: 'GET',
+            url: '/Produto/Details/?Id=' + id,
+            dataType: 'html',
+            cache: false,
+            async: true,
+            success: function (data) {
+                $('#CadProduto').html(data);
+            }
+        });
+    }
+</script>
+
+
+<div class="container">
+      <div role="main">
+          <div class="row">
+              <div class="col-md-12">
+                  <div id="CadProduto">
+                      @{
+                          Html.RenderPartial("IncluirProduto", new FcamaraTeste.Domain.Entidades.Produto());
+                      }
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <table class="table table-condensed table-hover table-striped table-bordered">
+
+                      <tr>
+                          <th>
+                              @Html.DisplayNameFor(model => model[0].ID_Produto)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model[0].NM_Produto)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model[0].DS_Produto)
+                          </th>
+                          <th>
+                              @Html.DisplayNameFor(model => model[0].VL_Unitario)
+                          </th>
+                          <th></th>
+                      </tr>
+
+                      @foreach (var item in Model)
+                      {
+                          <tr>
+                              <td>
+                                  <a onclick="javascript:GetProduto('' + @Html.DisplayFor(modelItem => item.ID_Produto).ToString() + '')">@Html.DisplayFor(modelItem => item.ID_Produto).ToString()</a>
+
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.NM_Produto)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.DS_Produto)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.VL_Unitario)
+                              </td>
+                          </tr>
+                      }
+
+                  </table>
+              </div> 
+          </div>
+      </div>
+</div>
+
+
+
+     
